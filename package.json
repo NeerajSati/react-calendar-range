@@ -1,13 +1,18 @@
 {
-  "name": "react-typescript",
-  "version": "1.0.0",
+  "name": "react-calendar-range",
+  "version": "1.0.1",
   "description": "React and TypeScript example starter project",
   "keywords": [
-    "typescript",
-    "react",
-    "starter"
+    "react-date-picker",
+    "react-typescript-calendar-date",
+    "date-range-picker",
+    "react-calendar-date-range-picker",
+    "react-date-calendar",
+    "react-calendar-range"
   ],
-  "main": "src/index.tsx",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "dependencies": {
     "loader-utils": "3.2.1",
     "react": "18.2.0",
@@ -17,11 +22,25 @@
   "devDependencies": {
     "@types/react": "18.2.38",
     "@types/react-dom": "18.2.15",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.5",
     "typescript": "4.4.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run prettier && npm run lint",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -30,5 +49,20 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeerajSati/react-calendar-range.git"
+  },
+  "author": "Neeraj Sati (neeraj_sati)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NeerajSati/react-calendar-range/issues"
+  },
+  "homepage": "https://github.com/NeerajSati/react-calendar-range#readme",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
   ]
 }

@@ -1,146 +1,145 @@
-import React, { useState, useEffect } from "react";
-import "./calendar.css";
-import { YEAR_CALENDAR, WEEK_DAYS, areDatesEqual } from "./constants";
-import YearBack from "../assets/DoubleBack.svg";
-import MonthBack from "../assets/SingleBack.svg";
+import React, { useState, useEffect } from 'react'
+import './calendar.css'
+import { YEAR_CALENDAR, WEEK_DAYS, areDatesEqual } from './constants'
+import YearBack from '../assets/DoubleBack.svg'
+import MonthBack from '../assets/SingleBack.svg'
 
+type CalendarPropsType = {
+  onChange: (startDate: Date | null, endDate: Date | null) => void
+  initialStartDate: Date | null
+  initialEndDate: Date | null
+  YearBackIcon: string
+  MonthBackIcon: string
+  hideDisabledDate: boolean
+  dateKeyDimension: string
+  inRangeClassName: string
+  selectedClassName: string
+  weekDayClassName: string
+  dateClassName: string
+  yearPanelClassName: string
+  calendarPopupClassName: string
+}
 export default function Calendar({
   onChange,
   initialStartDate,
   initialEndDate,
   YearBackIcon = YearBack,
   MonthBackIcon = MonthBack,
-  dateKeyDimension = "35px",
-  inRangeClassName = "",
-  selectedClassName = "",
-  weekDayClassName = "",
-  dateClassName = "",
-  yearPanelClassName = "",
-  calendarPopupClassName = "",
+  dateKeyDimension = '35px',
+  inRangeClassName = '',
+  selectedClassName = '',
+  weekDayClassName = '',
+  dateClassName = '',
+  yearPanelClassName = '',
+  calendarPopupClassName = '',
   hideDisabledDate = false,
-}: any) {
+}: CalendarPropsType) {
   const [thisYear, setThisYear] = useState<number>(
-    !isNaN(new Date(initialStartDate).getTime())
-      ? new Date(initialStartDate).getFullYear()
-      : new Date().getFullYear()
-  );
+    !isNaN(new Date(initialStartDate as Date).getTime())
+      ? new Date(initialStartDate as Date).getFullYear()
+      : new Date().getFullYear(),
+  )
   const [thisMonth, setThisMonth] = useState<number>(
-    !isNaN(new Date(initialStartDate).getTime())
-      ? new Date(initialStartDate).getMonth()
-      : new Date().getMonth()
-  );
-  const [daysThisMonth, setDaysThisMonth] = useState<number>(0);
-  const [endingWeekDay, setEndingWeekDay] = useState<number>(0);
-  const [startingWeekDay, setStartingWeekDay] = useState<number>(0);
-  const [lastMonthDays, setLastMonthDays] = useState<number>(0);
-  const [limitRangeDate, setLimitRangeDate] = useState<Date | null>(null);
+    !isNaN(new Date(initialStartDate as Date).getTime())
+      ? new Date(initialStartDate as Date).getMonth()
+      : new Date().getMonth(),
+  )
+  const [daysThisMonth, setDaysThisMonth] = useState<number>(0)
+  const [endingWeekDay, setEndingWeekDay] = useState<number>(0)
+  const [startingWeekDay, setStartingWeekDay] = useState<number>(0)
+  const [lastMonthDays, setLastMonthDays] = useState<number>(0)
+  const [limitRangeDate, setLimitRangeDate] = useState<Date | null>(null)
   const [startRangeDate, setStartRangeDate] = useState<Date | null>(
-    !isNaN(new Date(initialStartDate).getTime())
-      ? new Date(initialStartDate)
-      : null
-  );
+    !isNaN(new Date(initialStartDate as Date).getTime()) ? new Date(initialStartDate as Date) : null,
+  )
   const [endRangeDate, setEndRangeDate] = useState<Date | null>(
-    !isNaN(new Date(initialEndDate).getTime()) ? new Date(initialEndDate) : null
-  );
+    !isNaN(new Date(initialEndDate as Date).getTime()) ? new Date(initialEndDate as Date) : null,
+  )
 
   const calendarDateStyles = {
     width: dateKeyDimension,
     height: dateKeyDimension,
-  };
+  }
 
   const handleSelectDate = (date: number) => () => {
-    let clickedDate = new Date(thisYear, thisMonth, date);
+    const clickedDate = new Date(thisYear, thisMonth, date)
     if (!startRangeDate) {
-      setStartRangeDate(clickedDate);
-      onChange(clickedDate, endRangeDate);
+      setStartRangeDate(clickedDate)
+      onChange(clickedDate, endRangeDate)
     } else if (clickedDate < startRangeDate) {
-      setStartRangeDate(clickedDate);
-      onChange(clickedDate, endRangeDate);
+      setStartRangeDate(clickedDate)
+      onChange(clickedDate, endRangeDate)
     } else {
-      setEndRangeDate(clickedDate);
-      onChange(startRangeDate, clickedDate);
+      setEndRangeDate(clickedDate)
+      onChange(startRangeDate, clickedDate)
     }
-  };
+  }
 
   const handleMonthSwitch = (skip: number) => () => {
     if (skip === -1 && thisMonth === 0) {
-      setThisMonth(11);
-      setThisYear((year) => year - 1);
+      setThisMonth(11)
+      setThisYear((year) => year - 1)
     } else if (skip === 1 && thisMonth === 11) {
-      setThisMonth(0);
-      setThisYear((year) => year + 1);
+      setThisMonth(0)
+      setThisYear((year) => year + 1)
     } else {
-      setThisMonth(thisMonth + skip);
+      setThisMonth(thisMonth + skip)
     }
-  };
+  }
 
   const getActiveClasses = (date: number) => {
-    const currentDate = new Date(thisYear, thisMonth, date + 1);
-    let className = "";
+    const currentDate = new Date(thisYear, thisMonth, date + 1)
+    let className = ''
 
     // Add selected class if the date is either equal to range start date or end date
-    if (
-      areDatesEqual(currentDate, startRangeDate as Date) ||
-      areDatesEqual(currentDate, endRangeDate as Date)
-    )
-      className += `selected ${selectedClassName} `;
+    if (areDatesEqual(currentDate, startRangeDate as Date) || areDatesEqual(currentDate, endRangeDate as Date))
+      className += `selected ${selectedClassName} `
     // Add inrange class if the date is between start and end range date / hovered date
     else if (
       startRangeDate &&
       currentDate > startRangeDate &&
-      (currentDate < (limitRangeDate as Date) ||
-        currentDate < (endRangeDate as Date))
+      (currentDate < (limitRangeDate as Date) || currentDate < (endRangeDate as Date))
     )
-      className += `inrange ${inRangeClassName} `;
+      className += `inrange ${inRangeClassName} `
 
-    return className;
-  };
+    return className
+  }
 
   useEffect(() => {
-    setDaysThisMonth(new Date(thisYear, thisMonth + 1, 0).getDate()); // new Date(2024, 2, 0)
-    setEndingWeekDay(new Date(thisYear, thisMonth + 1, 0).getDay()); // new Date(2024, 2, 0)
-    setStartingWeekDay(new Date(thisYear, thisMonth, 1).getDay()); // new Date(2024, 1, 1)
-    setLastMonthDays(new Date(thisYear, thisMonth, 0).getDate()); // new Date(2024, 1, 0)
-  }, [thisYear, thisMonth]);
+    setDaysThisMonth(new Date(thisYear, thisMonth + 1, 0).getDate()) // new Date(2024, 2, 0)
+    setEndingWeekDay(new Date(thisYear, thisMonth + 1, 0).getDay()) // new Date(2024, 2, 0)
+    setStartingWeekDay(new Date(thisYear, thisMonth, 1).getDay()) // new Date(2024, 1, 1)
+    setLastMonthDays(new Date(thisYear, thisMonth, 0).getDate()) // new Date(2024, 1, 0)
+  }, [thisYear, thisMonth])
 
   return (
     <div className={`glossary ${calendarPopupClassName}`}>
-      <div className="yearContainer">
-        <div className="back">
-          <div
-            className="yearBack"
-            onClick={() => setThisYear((year: any) => year - 1)}
-          >
-            <img alt="yearBack" src={YearBackIcon}></img>
+      <div className='yearContainer'>
+        <div className='back'>
+          <div className='yearBack' onClick={() => setThisYear((year: number) => year - 1)}>
+            <img alt='yearBack' src={YearBackIcon}></img>
           </div>
-          <div className="monthBack" onClick={handleMonthSwitch(-1)}>
-            <img alt="monthBack" src={MonthBackIcon}></img>
+          <div className='monthBack' onClick={handleMonthSwitch(-1)}>
+            <img alt='monthBack' src={MonthBackIcon}></img>
           </div>
         </div>
         <div className={`monthYear ${yearPanelClassName}`}>
-          <div className="month">{YEAR_CALENDAR[thisMonth]}</div>
-          <div className="year">{thisYear}</div>
+          <div className='month'>{YEAR_CALENDAR[thisMonth]}</div>
+          <div className='year'>{thisYear}</div>
         </div>
-        <div className="next">
-          <div className="monthNext" onClick={handleMonthSwitch(1)}>
-            <img alt="monthNext" src={MonthBackIcon}></img>
+        <div className='next'>
+          <div className='monthNext' onClick={handleMonthSwitch(1)}>
+            <img alt='monthNext' src={MonthBackIcon}></img>
           </div>
-          <div
-            className="yearNext"
-            onClick={() => setThisYear((year: any) => year + 1)}
-          >
-            <img alt="yearNext" src={YearBackIcon}></img>
+          <div className='yearNext' onClick={() => setThisYear((year: number) => year + 1)}>
+            <img alt='yearNext' src={YearBackIcon}></img>
           </div>
         </div>
       </div>
-      <div className="dateContainer">
-        <div className="days">
+      <div className='dateContainer'>
+        <div className='days'>
           {WEEK_DAYS.map((day) => (
-            <div
-              key={day}
-              className={`weekdayName ${weekDayClassName}`}
-              style={{ width: dateKeyDimension }}
-            >
+            <div key={day} className={`weekdayName ${weekDayClassName}`} style={{ width: dateKeyDimension }}>
               {day}
             </div>
           ))}
@@ -150,7 +149,7 @@ export default function Calendar({
               .fill(null)
               .map((_, date) => (
                 <div
-                  className={`day  ${hideDisabledDate ? "hidden" : "disabled"}`}
+                  className={`day  ${hideDisabledDate ? 'hidden' : 'disabled'}`}
                   key={`${thisYear}-${thisMonth}-${date + 1}-backfill`}
                   style={calendarDateStyles}
                 >
@@ -164,13 +163,10 @@ export default function Calendar({
               .map((_, date) => (
                 <div
                   onMouseOver={() => {
-                    if (!endRangeDate && startRangeDate)
-                      setLimitRangeDate(
-                        new Date(thisYear, thisMonth, date + 1)
-                      );
+                    if (!endRangeDate && startRangeDate) setLimitRangeDate(new Date(thisYear, thisMonth, date + 1))
                   }}
                   onMouseOut={() => {
-                    if (limitRangeDate) setLimitRangeDate(null);
+                    if (limitRangeDate) setLimitRangeDate(null)
                   }}
                   onClick={handleSelectDate(date + 1)}
                   className={`day ${dateClassName} ${getActiveClasses(date)}`}
@@ -186,7 +182,7 @@ export default function Calendar({
               .fill(null)
               .map((_, date) => (
                 <div
-                  className={`day ${hideDisabledDate ? "hidden" : "disabled"}`}
+                  className={`day ${hideDisabledDate ? 'hidden' : 'disabled'}`}
                   key={`${thisYear}-${thisMonth}-${date + 1}-forwardfill`}
                   style={calendarDateStyles}
                 >
@@ -196,5 +192,5 @@ export default function Calendar({
         </div>
       </div>
     </div>
-  );
+  )
 }
