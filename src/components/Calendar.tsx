@@ -6,18 +6,18 @@ import MonthBack from '../assets/SingleBack.svg'
 
 type CalendarPropsType = {
   onChange: (startDate: Date | null, endDate: Date | null) => void
-  initialStartDate: Date | null
-  initialEndDate: Date | null
-  YearBackIcon: string
-  MonthBackIcon: string
-  hideDisabledDate: boolean
-  dateKeyDimension: string
-  inRangeClassName: string
-  selectedClassName: string
-  weekDayClassName: string
-  dateClassName: string
-  yearPanelClassName: string
-  calendarPopupClassName: string
+  initialStartDate?: string
+  initialEndDate?: string
+  YearBackIcon?: string
+  MonthBackIcon?: string
+  hideDisabledDate?: boolean
+  dateKeyDimension?: string
+  inRangeClassName?: string
+  selectedClassName?: string
+  weekDayClassName?: string
+  dateClassName?: string
+  yearPanelClassName?: string
+  calendarPopupClassName?: string
 }
 export default function Calendar({
   onChange,
@@ -35,13 +35,13 @@ export default function Calendar({
   hideDisabledDate = false,
 }: CalendarPropsType) {
   const [thisYear, setThisYear] = useState<number>(
-    !isNaN(new Date(initialStartDate as Date).getTime())
-      ? new Date(initialStartDate as Date).getFullYear()
+    !isNaN(new Date(initialStartDate as string).getTime())
+      ? new Date(initialStartDate as string).getFullYear()
       : new Date().getFullYear(),
   )
   const [thisMonth, setThisMonth] = useState<number>(
-    !isNaN(new Date(initialStartDate as Date).getTime())
-      ? new Date(initialStartDate as Date).getMonth()
+    !isNaN(new Date(initialStartDate as string).getTime())
+      ? new Date(initialStartDate as string).getMonth()
       : new Date().getMonth(),
   )
   const [daysThisMonth, setDaysThisMonth] = useState<number>(0)
@@ -50,10 +50,10 @@ export default function Calendar({
   const [lastMonthDays, setLastMonthDays] = useState<number>(0)
   const [limitRangeDate, setLimitRangeDate] = useState<Date | null>(null)
   const [startRangeDate, setStartRangeDate] = useState<Date | null>(
-    !isNaN(new Date(initialStartDate as Date).getTime()) ? new Date(initialStartDate as Date) : null,
+    !isNaN(new Date(initialStartDate as string).getTime()) ? new Date(initialStartDate as string) : null,
   )
   const [endRangeDate, setEndRangeDate] = useState<Date | null>(
-    !isNaN(new Date(initialEndDate as Date).getTime()) ? new Date(initialEndDate as Date) : null,
+    !isNaN(new Date(initialEndDate as string).getTime()) ? new Date(initialEndDate as string) : null,
   )
 
   const calendarDateStyles = {

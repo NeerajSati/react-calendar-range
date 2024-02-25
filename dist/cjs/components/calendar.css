@@ -1,0 +1,135 @@
+.glossary {
+  border: 2px solid #e3ebf5;
+  border-radius: 10px;
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.weekdayName {
+  width: 40px;
+  font-size: 0.875rem;
+  color: #787878b3;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: capitalize;
+  padding: 15px 0 5px;
+}
+
+.red {
+  color: red;
+}
+
+.days {
+  /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+  /* padding-top: 10px; */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.day {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  flex-basis: 14.2%;
+}
+.day:hover {
+  background-color: #ffb780e8;
+}
+
+.inrange,
+.inrange:hover {
+  background-color: #ffb780b3;
+  scale: 0.9;
+}
+.selected,
+.selected:hover {
+  background-color: #ff6e01;
+  color: white;
+  font-weight: 600;
+}
+
+.disabled,
+.disabled:hover {
+  color: rgba(83, 83, 83, 0.372);
+  background-color: transparent;
+  cursor: not-allowed;
+}
+
+.yearContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 20px;
+  background-color: #fb602a;
+  color: #fff4e1;
+}
+
+.dateContainer {
+  margin-top: -10px;
+  padding: 0 5px 10px;
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.yearBack,
+.monthBack,
+.monthNext,
+.yearNext {
+  cursor: pointer;
+}
+
+.monthYear {
+  display: flex;
+  flex-direction: column;
+}
+
+.month {
+  font-size: 14px;
+  font-weight: 600;
+}
+.year {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.next,
+.back {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.yearBack img,
+.yearNext img {
+  width: 18px;
+}
+
+.monthBack img,
+.monthNext img {
+  width: 15px;
+}
+
+.yearBack img,
+.monthNext img {
+  transform: rotate(180deg);
+}

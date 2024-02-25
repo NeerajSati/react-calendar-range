@@ -1,6 +1,6 @@
 {
   "name": "react-calendar-range",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "React and TypeScript example starter project",
   "keywords": [
     "react-date-picker",
@@ -37,8 +37,8 @@
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
-    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
+    "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx,css}\"",
+    "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx,css}\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run prettier && npm run lint",
     "test": "react-scripts test --env=jsdom",
