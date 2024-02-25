@@ -40,7 +40,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  /* width: 290px; */
   overflow: hidden;
 }
 
@@ -52,15 +51,10 @@
   -webkit-user-select: none;
 }
 
-/* .row {
-    display: flex;
-    flex-direction: row;
-  } */
-
 .weekdayName {
   width: 40px;
   font-size: 0.875rem;
-  color: rgb(0 139 84 / 59%);
+  color: #787878b3;
   font-weight: 600;
   font-size: 12px;
   text-transform: capitalize;
@@ -91,16 +85,18 @@
   flex-basis: 14.2%;
 }
 .day:hover {
-  background-color: rgba(80, 186, 161, 0.3);
+  background-color: #ffb780e8;
 }
 
 .inrange,
 .inrange:hover {
-  background-color: rgba(80, 186, 161, 0.2);
+  background-color: #ffb780b3;
+  scale: 0.9;
 }
 .selected,
 .selected:hover {
-  background-color: rgb(0, 217, 166);
+  background-color: #ff6e01;
+  color: white;
   font-weight: 600;
 }
 
@@ -117,8 +113,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 10px 20px;
-  background-color: rgb(0 179 137);
-  color: #fffff8;
+  background-color: #fb602a;
+  color: #fff4e1;
 }
 
 .dateContainer {
@@ -157,5 +153,21 @@
 .back {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 5px;
+  align-items: center;
+}
+
+.yearBack img,
+.yearNext img {
+  width: 18px;
+}
+
+.monthBack img,
+.monthNext img {
+  width: 15px;
+}
+
+.yearBack img,
+.monthNext img {
+  transform: rotate(180deg);
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { YEAR_CALENDAR, WEEK_DAYS, areDatesEqual } from "./constants";
+import DoubleBack from "./DoubleBack.svg"
+import SingleBack from "./SingleBack.svg"
 
 export default function CalendarGlossary({
   dateKeyDimension = "35px",
@@ -91,10 +93,10 @@ export default function CalendarGlossary({
             className="yearBack"
             onClick={() => setThisYear((year: any) => year - 1)}
           >
-            {"<<"}
+            <img alt="yearBack" src={DoubleBack}></img>
           </div>
           <div className="monthBack" onClick={handleMonthSwitch(-1)}>
-            {"<"}
+            <img alt="monthBack" src={SingleBack}></img>
           </div>
         </div>
         <div className="monthYear">
@@ -103,13 +105,13 @@ export default function CalendarGlossary({
         </div>
         <div className="next">
           <div className="monthNext" onClick={handleMonthSwitch(1)}>
-            {">"}
+            <img alt="monthNext" src={SingleBack}></img>
           </div>
           <div
             className="yearNext"
             onClick={() => setThisYear((year: any) => year + 1)}
           >
-            {">>"}
+            <img alt="yearNext" src={DoubleBack}></img>
           </div>
         </div>
       </div>
