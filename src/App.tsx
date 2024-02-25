@@ -1,10 +1,10 @@
 import "./styles.css";
-import Calendar from "./Calendar/Calendar";
+import CalendarGlossary from "./components/CalendarExample";
 export default function App() {
   return (
     <div className="App">
       <h1>Date dropdown</h1>
-      <Calendar />
+      <CalendarGlossary />
     </div>
   );
 }
